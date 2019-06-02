@@ -1,0 +1,40 @@
+   {
+        "key": "F1",
+        "command": "runInTerminal.run",
+        "args": {"cmd": "python.exe -m ampy.cli --find-port CH340 --baud 115200 reset", "match": ".*"},
+        "when": "resourceLangId == python" 
+    },
+    {
+        "key": "F2",
+        "command": "runInTerminal.run",
+        "args": {"cmd": "python.exe -m ampy.cli --find-port CH340 --baud 115200 put ${relativeFile}", "match": ".*"},
+        "when": "resourceLangId == python" 
+    },
+    {
+        "key": "F2",
+        "command": "runInTerminal.run",
+        "args": {"cmd": "python.exe -m ampy.cli --find-port CH340 --baud 115200 put ${relativeFile}", "match": ".*"},
+        "when": "resourceLangId == html" 
+    },
+    {
+        "key": "F3",
+        "command": "runInTerminal.run",
+        "args": {"cmd": "python.exe -m ampy.cli --find-port CH340 --baud 115200 run --no-output ${relativeFile}", "match": ".*"},
+        "when": "resourceLangId == python" 
+    },
+    {
+        "key": "F4",
+        "command": "runInTerminal.run",
+        "args": {"cmd": "python.exe .\\miniterm.py --find-port CH340 --exit-char 4 --filter winmicha ? 115200", "match": ".*"},
+        "when": "resourceLangId == python" 
+    },
+    {
+        "key": "F5",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "F6",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
