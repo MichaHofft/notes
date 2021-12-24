@@ -113,7 +113,8 @@ Some further options:
 `Act in hierarchy`: By default, all SubmodelElements of all hierarchy levels will be exported into one
 table; the `%depth%` placeholder will render the numerical hierarchy depth, the `%indent%` placeholder
 will arespective sequence of `~` characters to visually care for an indent. If set, this option will
-split the elements in multiple table, each for one changing hierarchy level.
+split the elements in multiple table, each for one changing hierarchy level. After a table, a number
+of `gap` empty sections/ paragraphs are inserted in the generated document to delimit the tables.
 
 `Replace failed matches`: if an placholder could not be filled with content, it is left as normal
 ascii text within the cell. This holds also true for mispelled placeholders. If the option is set,
@@ -132,6 +133,41 @@ occur.
 In recent versions of the AASX Package Explorer, the above mechanism can be used for an import, as 
 well. The vision is a true roundtrip workflow with iterated engineering between AASX and Word an
 Excel, but this vision is still ongoing.
+
+The idea is to use an identical grid specification to match *incoming* table cells. The different
+placeholder partially provide an adaptive behaviour, to cope with different formats of provided
+text input, hence not an over-specification is necessary. However, not all placeholders are 
+currently supported for input. This is an ongoing activity.
+
+If `Act in hierarchy` is set: `gap` number of rows is used to figure out, when one table has 
+ended and another table is to be started.
+
+> Note: always introduce multiple empty paragrpahs/ rows to allow the algorithm to detect a
+> further table.
+
+### Special import placeholder
+
+For controlling import matching, some special placeholders are provided:
+
+```
+Special: %*% = match any, %stop% = stop if non-empty, %seq={ascii}% = split sequence by char {ascii}, 
+%opt% = optional match
+```
+
+`%opt%` as very first placeholder in the cell will declare matching optional, that is, the 
+matching process will not stop unsuccessfull for the row/ table, even if not matching 
+text input is found.
+
+`%*%` will match any sequence of characters in the cell. This can be used to ignore some 
+pre-formatted content or make the mapping more adaptable.
+
+`%stop%` will stop matching, when already a successful matching (to a previous placeholder) took
+place. By this, a kind of either-or beheviour could be realized.
+
+`%seq={ascii}%` will allow to take a text input to a cell as a multiple of distinct parts
+which allows multiple placeholders to match sequentially. The `{ascii}` argument allows to
+specify a delimiting character to split the text input into parts. To specify a character,
+each of `%seq=<NL>%`, `%seq=\n%`, `%seq=10%` would end in matching the newline charachter.
 
 ## Preset configuration
 
